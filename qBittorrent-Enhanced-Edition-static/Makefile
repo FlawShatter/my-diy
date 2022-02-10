@@ -42,17 +42,13 @@ define Download/$(PKG_NAME)
   HASH:=skip
 endef
 
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	unzip -o -d $(PKG_INSTALL_DIR) $(DL_DIR)/qbittorrent-nox_$(PKG_ARCH).zip
-endef
-
 define Build/Compile
+	unzip -o -d $(PKG_INSTALL_DIR) $(DL_DIR)/qbittorrent-nox_$(PKG_ARCH).zip
 endef
 
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/qbittorrent-nox $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/qbittorrent-nox $(1)/usr/bin/
 endef
 
 $(eval $(call Download,$(PKG_NAME)))
