@@ -16,11 +16,11 @@ define Package/$(PKG_NAME)/config
 		default PACKAGE_luci-app-qBittorrent-Enhanced-Edition_dynamic if !(aarch64||x86_64)
 
 		config PACKAGE_luci-app-qBittorrent-Enhanced-Edition_static
-			bool "Static Build"
+			bool "Static_Version"
 			depends on aarch64||x86_64
 
 		config PACKAGE_luci-app-qBittorrent-Enhanced-Edition_dynamic
-			bool "Dynamic Build"
+			bool "Dynamic_Version"
 
 	endchoice
 endef
