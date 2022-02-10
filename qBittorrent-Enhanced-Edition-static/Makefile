@@ -52,4 +52,5 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/qbittorrent-nox $(1)/usr/bin/
 endef
 
+$(eval $(call Download,$(PKG_NAME)))
 $(eval $(call BuildPackage,$(PKG_NAME)))
