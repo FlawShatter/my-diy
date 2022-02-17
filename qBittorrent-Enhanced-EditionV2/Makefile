@@ -23,7 +23,7 @@ define Package/$(PKG_NAME)
 	SUBMENU:=BitTorrent
 	SECTION:=net
 	CATEGORY:=Network
-	TITLE:=bittorrent client programmed in C++ / Qt
+	TITLE:=bittorrent client programmed in C++ / Qt Build with libtorrent-rasterbar v2
 	URL:=https://github.com/c0re100/qBittorrent-Enhanced-EditionV2
 	DEPENDS:=+libgcc +libstdcpp \
 		+libtorrent-rasterbar \
