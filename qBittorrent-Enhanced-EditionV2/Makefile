@@ -1,48 +1,43 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qBittorrent-Enhanced-EditionV2
-PKG_VERSION:=4.3.9.10
+PKG_VERSION:=4.4.0.10
 PKG_RELEASE=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/c0re100/qBittorrent-Enhanced-EditionV2/tar.gz/release-$(PKG_VERSION)?
-PKG_HASH:=4b450edf5cf6c58c1f9d330891f0d76d47db6d61c6d09961c533529035d66ad0
+PKG_HASH:=7296c4ed516baaa004f78ed6ef3be8f2f932cabaf6339eb14b11aeda53907fd9
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-release-$(PKG_VERSION)
 
 PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
 
-PKG_BUILD_DEPENDS:=qttools
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/$(PKG_NAME)
+define Package/qBittorrent-Enhanced-EditionV2
 	SUBMENU:=BitTorrent
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=bittorrent client programmed in C++ / Qt Build with libtorrent-rasterbar v2
 	URL:=https://github.com/c0re100/qBittorrent-Enhanced-EditionV2
-	DEPENDS:=+libgcc +libstdcpp \
-		+libtorrent-rasterbar \
-		+libopenssl \
-		+python3 \
-		+qt5-core \
-		+qt5-network \
-		+qt5-sql \
-		+qt5-xml \
-		+zlib
+	DEPENDS:=+boost +libtorrent-rasterbar +python3 +qt5-core +qt5-network +qt5-sql +qt5-xml
 endef
 
-define Package/$(PKG_NAME)/description
-	qBittorrent is a bittorrent client programmed in C++ / Qt that uses
-	libtorrent (sometimes called libtorrent-rasterbar) by Arvid Norberg.
-	It aims to be a good alternative to all other bittorrent clients out
-	there. qBittorrent is fast, stable and provides unicode support as
-	well as many features.
+define Package/qBittorrent-Enhanced-EditionV2/description
+qBittorrent is a bittorrent client programmed in C++ / Qt that uses
+libtorrent (sometimes called libtorrent-rasterbar) by Arvid Norberg.
+It aims to be a good alternative to all other bittorrent clients out
+there. qBittorrent is fast, stable and provides unicode support as
+well as many features.
 endef
+
+CONFIGURE_VARS += \
+  	QT_QMAKE="$(TOOLCHAIN_DIR)/bin" \
+	PKG_CONFIG_PATH="$(TOOLCHAIN_DIR)/lib/pkgconfig"
 
 CONFIGURE_ARGS += \
 	--disable-gui \
@@ -52,16 +47,14 @@ CONFIGURE_ARGS += \
 MAKE_VARS += \
 	INSTALL_ROOT="$(PKG_INSTALL_DIR)"
 
-
-TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
-
-define Package/$(PKG_NAME)/conffiles
-/etc/qbittorrent
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	$(SED) '/<context>/{:a;N;/<\/context>/!ba;/\/gui\//d}' `ls $(PKG_BUILD_DIR)/src/lang/qbittorrent_*.ts`
 endef
 
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/qbittorrent-nox $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/qbittorrent-nox $(1)/usr/bin
 endef
 
-$(eval $(call BuildPackage,$(PKG_NAME)))
+$(eval $(call BuildPackage,qBittorrent-Enhanced-EditionV2))
