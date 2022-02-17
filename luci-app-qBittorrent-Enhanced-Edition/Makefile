@@ -7,7 +7,8 @@ LUCI_TITLE:=LuCI support for qBittorrent-Enhanced-Edition
 LUCI_PKGARCH:=all
 LUCI_DEPENDS:= \
 	+PACKAGE_luci-app-qBittorrent-Enhanced-Edition_static:qBittorrent-Enhanced-Edition-static \
-	+PACKAGE_luci-app-qBittorrent-Enhanced-Edition_dynamic:qBittorrent-Enhanced-Edition
+	+PACKAGE_luci-app-qBittorrent-Enhanced-Edition_dynamic:qBittorrent-Enhanced-Edition \
+	+PACKAGE_luci-app-qBittorrent-Enhanced-Edition_v2_dynamic:qBittorrent-Enhanced-Edition-v2
 
 define Package/$(PKG_NAME)/config
 	choice
@@ -21,6 +22,9 @@ define Package/$(PKG_NAME)/config
 
 		config PACKAGE_luci-app-qBittorrent-Enhanced-Edition_dynamic
 			bool "Dynamic_Version"
+
+		config PACKAGE_luci-app-qBittorrent-Enhanced-Edition_v2_dynamic
+			bool "V2 Dynamic_Version"
 
 	endchoice
 endef
