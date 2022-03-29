@@ -16,6 +16,8 @@ PKG_CPE_ID:=cpe:/a:qbittorrent:qbittorrent
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
+PKG_BUILD_DEPENDS:=qttools
+
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
@@ -44,11 +46,6 @@ CMAKE_OPTIONS+= \
 
 TARGET_CFLAGS += -std=c++17 -ffunction-sections -fdata-sections -flto
 TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed -flto
-
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	$(SED) '/<context>/{:a;N;/<\/context>/!ba;/\/gui\//d}' `ls $(PKG_BUILD_DIR)/src/lang/qbittorrent_*.ts`
-endef
 
 define Package/qBittorrent-Enhanced-Edition/install
 	$(INSTALL_DIR) $(1)/usr/bin
