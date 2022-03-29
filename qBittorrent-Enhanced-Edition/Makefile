@@ -11,48 +11,48 @@ PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-release-$(PKG_VERSION)
 
 PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
+PKG_CPE_ID:=cpe:/a:qbittorrent:qbittorrent
 
-PKG_BUILD_DEPENDS:=qttools
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
-define Package/$(PKG_NAME)
-	SUBMENU:=BitTorrent
-	SECTION:=net
-	CATEGORY:=Network
-	TITLE:=bittorrent client programmed in C++ / Qt
-	URL:=https://github.com/c0re100/qBittorrent-Enhanced-Edition
-	DEPENDS:=+boost +libtorrent-rasterbar +python3 +qt5-core +qt5-network +qt5-sql +qt5-xml
+define Package/qBittorrent-Enhanced-Edition
+  SUBMENU:=BitTorrent
+  SECTION:=net
+  CATEGORY:=Network
+  TITLE:=bittorrent client programmed in C++ / Qt
+  URL:=https://github.com/c0re100/qBittorrent-Enhanced-Edition
+  DEPENDS:=+boost +libtorrent-rasterbar +qt5-core +qt5-network +qt5-sql +qt5-xml
+  PROVIDES:=qbittorrent
 endef
 
-define Package/$(PKG_NAME)/description
-	qBittorrent is a bittorrent client programmed in C++ / Qt that uses
-	libtorrent (sometimes called libtorrent-rasterbar) by Arvid Norberg.
-	It aims to be a good alternative to all other bittorrent clients out
-	there. qBittorrent is fast, stable and provides unicode support as
-	well as many features.
+define Package/qBittorrent-Enhanced-Edition/description
+  qBittorrent is a bittorrent client programmed in C++ / Qt that uses
+  libtorrent (sometimes called libtorrent-rasterbar) by Arvid Norberg.
+  It aims to be a good alternative to all other bittorrent clients out
+  there. qBittorrent is fast, stable and provides unicode support as
+  well as many features.
 endef
 
-CONFIGURE_ARGS += \
-	--disable-gui \
-	--enable-stacktrace=no \
-	--with-boost=$(STAGING_DIR)/usr
+CMAKE_OPTIONS+= \
+	-DGUI=OFF \
+	-DSTACKTRACE=OFF \
+	-DWEBUI=ON
 
-MAKE_VARS += \
-	INSTALL_ROOT="$(PKG_INSTALL_DIR)"
+TARGET_CFLAGS += -std=c++17 -ffunction-sections -fdata-sections -flto
+TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed -flto
 
-
-TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
-
-define Package/$(PKG_NAME)/conffiles
-/etc/qBittorrent
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	$(SED) '/<context>/{:a;N;/<\/context>/!ba;/\/gui\//d}' `ls $(PKG_BUILD_DIR)/src/lang/qbittorrent_*.ts`
 endef
 
-define Package/$(PKG_NAME)/install
+define Package/qBittorrent-Enhanced-Edition/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/qbittorrent-nox $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/qbittorrent-nox $(1)/usr/bin
 endef
 
-$(eval $(call BuildPackage,$(PKG_NAME)))
+$(eval $(call BuildPackage,qBittorrent-Enhanced-Edition))
