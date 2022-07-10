@@ -1,11 +1,10 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-soupsieve
-PKG_VERSION:=2.3.2.post1
-PKG_RELEASE:=1
+PKG_VERSION:=2.3.1
 
 PYPI_NAME:=soupsieve
-PKG_HASH:=fc53893b3da2c33de295667a0e19f078c14bf86544af307354de5fcf12a3f30d
+PKG_HASH:=b8d49b1cd4f037c7082a9683dfa1801aa2597fb11c3a1155b7a5b94829b4f1f9
 
 HOST_PYTHON3_PACKAGE_BUILD_DEPENDS:=setuptools-scm
 
@@ -18,7 +17,7 @@ define Package/python3-soupsieve
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=soupsieve
-  URL:=https://pypi.org/project/requests-toolbelt
+  URL:=https://pypi.org/project/soupsieve
   DEPENDS:=+python3-light
 endef
 
