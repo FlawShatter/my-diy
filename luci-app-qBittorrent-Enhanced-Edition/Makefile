@@ -9,22 +9,22 @@ LUCI_DEPENDS:= \
 	+PACKAGE_$(PKG_NAME)_static:qBittorrent-Enhanced-Edition-static \
 	+PACKAGE_$(PKG_NAME)_dynamic:qBittorrent-Enhanced-Edition
 
-define Package/luci-app-qBittorrent-Enhanced-Edition/config
+define Package/$(PKG_NAME)/config
 	choice
 		prompt "Build Selection"
-		default PACKAGE_luci-app-qBittorrent-Enhanced-Edition_dynamic
+		default PACKAGE_$(PKG_NAME)_dynamic
 
-		config PACKAGE_luci-app-qBittorrent-Enhanced-Edition_static
+		config PACKAGE_$(PKG_NAME)_static
 			bool "Static"
 			depends on aarch64||x86_64
 
-		config PACKAGE_luci-app-qBittorrent-Enhanced-Edition_dynamic
+		config PACKAGE_$(PKG_NAME)_dynamic
 			bool "Dynamic"
 
 	endchoice
 endef
 
-define Package/luci-app-qBittorrent-Enhanced-Edition/conffiles
+define Package/$(PKG_NAME)/conffiles
 /etc/qBittorrent
 /etc/config/qBittorrentEE
 endef
