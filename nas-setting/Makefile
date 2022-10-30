@@ -20,13 +20,13 @@ define Package/nas-settings
   PKGARCH:=all
   DEPENDS:=+default-settings \
 			+luci-app-amule \
-  			+luci-app-aria2 \
+			+luci-app-aria2 \
 			+luci-app-beardropper \
 			+luci-app-cpufreq \
 			+luci-app-ddnsto \
 			+luci-app-diskman \
 			+luci-app-dockerman \
-			+luci-app-filebrowser
+			+luci-app-filebrowser \
 			+luci-app-frpc \
 			+luci-app-linkease \
 			+luci-app-minidlna \
