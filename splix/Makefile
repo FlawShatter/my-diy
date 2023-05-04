@@ -45,12 +45,13 @@ MAKE_VARS += \
 define Build/Configure
 	$(CP) $(PKG_BUILD_DIR)/*.ppd $(PKG_BUILD_DIR)/ppd
 endef
+
 define Package/splix/install
-	$(INSTALL_DIR) $(1)/opt/lib/cups/filter
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/cups/filter/{raster,ps}toqpdl \
-	    $(1)/opt/lib/cups/filter
-	$(INSTALL_DIR) $(1)/opt/share/cups/model
-	$(CP) $(PKG_INSTALL_DIR)/opt/share/cups/model/* $(1)/opt/share/cups/model
+	$(INSTALL_DIR) $(1)/usr/lib/cups/filter
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/cups/filter/{raster,ps}toqpdl \
+	    $(1)/usr/lib/cups/filter
+	$(INSTALL_DIR) $(1)/usr/share/cups/model
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/cups/model/* $(1)/usr/share/cups/model
 endef
 
 $(eval $(call BuildPackage,splix))

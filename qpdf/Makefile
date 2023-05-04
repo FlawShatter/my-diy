@@ -25,7 +25,7 @@ include $(INCLUDE_DIR)/cmake.mk
 define Package/qpdf
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS:=+libjpeg +libopenssl +zlib +libstdcpp
+	DEPENDS:=+libjpeg +libgnutls +zlib +libstdcpp
 	TITLE:=PDF transformations utility
 	URL:=http://qpdf.sourceforge.net/
 	MAINTAINER:=Entware team, https://entware.net
@@ -37,7 +37,7 @@ endef
 
 CMAKE_OPTIONS += \
 	-DUSE_IMPLICIT_CRYPTO=0 \
-	-DREQUIRE_CRYPTO_OPENSSL=1 \
+	-DREQUIRE_CRYPTO_GNUTLS=1 \
 	-DRANDOM_DEVICE=/dev/urandom
 
 define Package/qpdf/install
