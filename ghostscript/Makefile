@@ -30,7 +30,7 @@ define Package/ghostscript
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Printing
-	DEPENDS:=+fontconfig +libidn +libtiff +libcups
+	DEPENDS:=+fontconfig +libidn +libtiff +libcups2
 	TITLE:=interpreter for the PostScript language and for PDF
 	URL:=https://www.ghostscript.com/
 	MAINTAINER:=Entware team, https://entware.net
@@ -80,8 +80,8 @@ define Build/Install
 endef
 
 define Package/ghostscript/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(CP) $(PKG_INSTALL_DIR)/usr/bin $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/usr
+	$(CP) $(PKG_INSTALL_DIR)/usr/bin $(1)/usr
 	$(INSTALL_DIR) $(1)/usr/share
 	$(CP) $(PKG_INSTALL_DIR)/usr/share/ghostscript $(1)/usr/share
 endef
