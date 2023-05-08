@@ -77,11 +77,14 @@ endef
 define Package/gutenprint/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(CP) $(PKG_INSTALL_DIR)/usr/bin $(1)/usr
+
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/cups $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libgutenprint.so* $(1)/usr/lib
+
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/cups-genppd.5.3 $(1)/usr/sbin
+
 	$(INSTALL_DIR) $(1)/usr/share/gutenprint
 	$(CP) $(PKG_INSTALL_DIR)/usr/share/cups $(1)/usr/share
 	$(CP) $(PKG_INSTALL_DIR)/usr/share/gutenprint/5.3 $(1)/usr/share/gutenprint
